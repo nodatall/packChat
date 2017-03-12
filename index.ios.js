@@ -6,26 +6,47 @@
 
 import React, { Component } from 'react';
 import {
+  Alert,
   AppRegistry,
+  Button,
+  Image,
+  Navigator,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-export default class packChat extends Component {
+export default class PackChat extends Component {
+  _onPress() {
+    Alert.alert('Oh shit! Missing page!');
+   }
   render() {
+    const routes = [
+    {title: 'Sign In', index: 0},
+    {title: 'Sign Out', index: 1},
+  ];
     return (
       <View style={styles.container}>
+        <View>
+          <Image
+            style={{width: 250, height: 250}}
+            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+        </View>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to PackChat
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          Welcome Back!
         </Text>
+        <View style={styles.buttonContainer}>
+          <Button onPress={this._onPress} title="Sign In!" color="#FFFFFF" accessibilityLabel="Tap on Me"/>
+        </View>
         <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          To get started, please sign up!
         </Text>
+        <View style={styles.buttonContainer}>
+          <Button onPress={this._onPress} title="Sign Up!" color="#FFFFFF" accessibilityLabel="Tap on Me"/>
+        </View>
       </View>
     );
   }
@@ -45,9 +66,21 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#555555',
     marginBottom: 5,
   },
+  buttonContainer: {
+    backgroundColor: '#2E9298',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 10,
+    shadowOpacity: 0.25
+  }
 });
 
-AppRegistry.registerComponent('packChat', () => packChat);
+AppRegistry.registerComponent('packChat', () => PackChat);
