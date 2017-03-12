@@ -1,24 +1,29 @@
 import React, { Component, PropTypes } from 'react'
-import { View, TouchableHighlight, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet, Image } from 'react-native'
+import styles from './styles'
 
 export default class Landing extends Component {
-  static navigationOptions = {
-    title: 'Welcome',
-  }
-
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigator, routes } = this.props
+    const logo = require('../images/packChatLogo.png')
     return (
-      <View>
+      <View style={styles.container}>
+        <Text style={styles.header}>Pack Chat</Text>
+        <Image
+          style={{width: 100, height: 100, marginBottom: 250,}}
+          source={logo}
+        />
         <Button
         title="Create Account"
-        onPress={() => navigate('SignUp')}
+        onPress={() => navigator.push(routes[1])}
         />
         <Button
         title="Login"
-        onPress={() => navigate('Profile')}
+        onPress={() => {
+          navigator.jumpTo(routes[2])
+        }}
         />
       </View>
-    );
+    )
   }
 }
