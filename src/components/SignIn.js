@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, Button, TextInput, StyleSheet } from 'react-native'
-import styles from './styles'
 
-export default class SignUp extends Component {
+export default class SignIn extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
       email: '',
-      password: '',
+      password: ''
     }
     this.handlePress = this.handlePress.bind(this)
   }
@@ -21,18 +19,13 @@ export default class SignUp extends Component {
         return
       }
     }
-    navigator.push(routes[3])
+    navigator.jumpTo(routes[3])
   }
 
   render() {
+    const { navigator, routes } = this.props
     return (
       <View>
-        <TextInput
-          onChangeText={(text) => this.setState({name: text})}
-          value={this.state.name}
-          style={styles.textinput}
-          placeholder='name'
-        />
         <TextInput
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
@@ -46,10 +39,20 @@ export default class SignUp extends Component {
           placeholder='password'
         />
         <Button
-        title="Sign Up"
+        title="Sign In"
         onPress={this.handlePress}
         />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  textinput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 5,
+    marginBottom: 10,
+  }
+})
