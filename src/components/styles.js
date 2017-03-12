@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 5,
     marginBottom: 10,
+  },
+  message: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
   }
 })
 

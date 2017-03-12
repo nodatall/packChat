@@ -15,17 +15,26 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      currentEvent: ''
+      currentEvent: '',
+      currentMessage: '',
     }
+
     this.setCurrentEvent = this.setCurrentEvent.bind(this)
+    this.setCurrentMessage = this.setCurrentMessage.bind(this)
+
     this.socket = io('http://localhost:3002', {
       transports: ['websocket']
     })
     this.socket.on('connect', () => console.log('connected!'))
+    this.socket.on('crisis', data => console.log('OH PHUK CRISIS!', data))
   }
 
   setCurrentEvent(event) {
     this.setState({currentEvent: event})
+  }
+
+  setCurrentMessage(message) {
+    this.setState({currentMessage: message})
   }
 
   render() {
@@ -56,9 +65,15 @@ export default class App extends Component {
             case 'Pack':
               return <Pack navigator={navigator} routes={routes} setCurrentEvent={this.setCurrentEvent} />
             case 'Event':
-              return <Event navigator={navigator} routes={routes} event={this.state.currentEvent} />
+              return <Event
+                navigator={navigator}
+                routes={routes}
+                event={this.state.currentEvent}
+                socket={this.socket}
+                setCurrentMessage={this.setCurrentMessage}
+                />
             case 'Message':
-              return <Message navigator={navigator} routes={routes} />
+              return <Message navigator={navigator} routes={routes} message={this.state.currentMessage} />
           }
         }}
         style={{padding: 100}}
