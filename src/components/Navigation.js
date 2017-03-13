@@ -17,6 +17,7 @@ export default class App extends Component {
     this.state = {
       currentEvent: '',
       currentMessage: '',
+      crisis: {}
     }
 
     this.setCurrentEvent = this.setCurrentEvent.bind(this)
@@ -26,7 +27,9 @@ export default class App extends Component {
       transports: ['websocket']
     })
     this.socket.on('connect', () => console.log('connected!'))
-    this.socket.on('crisis', data => console.log('OH PHUK CRISIS!', data))
+    this.socket.on('crisis', crisis => {
+      this.setState({crisis})
+    })
   }
 
   setCurrentEvent(event) {
@@ -50,7 +53,7 @@ export default class App extends Component {
 
     return (
       <Navigator
-        initialRoute={routes[0]}
+        initialRoute={routes[3]}
         initialRouteStack={routes}
         renderScene={(route, navigator) => {
           switch(route.title) {
@@ -71,6 +74,7 @@ export default class App extends Component {
                 event={this.state.currentEvent}
                 socket={this.socket}
                 setCurrentMessage={this.setCurrentMessage}
+                crisis={this.state.crisis}
                 />
             case 'Message':
               return <Message navigator={navigator} routes={routes} message={this.state.currentMessage} />
